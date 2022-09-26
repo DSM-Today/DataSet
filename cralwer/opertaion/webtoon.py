@@ -29,7 +29,7 @@ class WebToon:
         content = bs(get(chosen_toon['direct_url']).text, 'lxml').find(class_='detail')
 
         return {
-            'status': chosen_toon['status'],
+            'g_rated': chosen_toon['g_rated'],
             'rank': rank,
             'published': chosen_toon['published'],
             'direct_url': chosen_toon['direct_url'],
@@ -46,7 +46,7 @@ class WebToon:
         for val in html_content_list:
             toon_list.append(
                 {
-                    'status': val.find('span',{'class':'mark_adult_thumb'}).text if val.find('span',{'class':'mark_adult_thumb'}) is not None else None,
+                    'g_rated': val.find('span',{'class':'mark_adult_thumb'}).text if val.find('span',{'class':'mark_adult_thumb'}) is not None else '18세 이하 이용 가능',
                     'published': '연재' if val.find('em') is None or '' else '휴재',
                     'title': val.img['alt'],
                     'direct_url': self._basic_uri + val.a.attrs['href'],
