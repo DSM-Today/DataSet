@@ -4,10 +4,8 @@ from bs4 import BeautifulSoup as bs
 from datetime import datetime, timedelta
 from random import randrange
 
-from pprint import pprint
 
-
-def get_weeday():
+def get_weekday():
     return (datetime.utcnow() + timedelta(hours=9)).weekday()
 
 
@@ -20,7 +18,7 @@ class WebToon:
     def get_today_toon_list(self):
         content = bs(get(self._list_uri).text, 'lxml')
 
-        today_content = content.findAll(class_='col_inner')[get_weeday()].ul
+        today_content = content.findAll(class_='col_inner')[get_weekday()].ul
 
         return self.parse_today_toon_list([today_content.li] + today_content.li.find_next_siblings())
 
