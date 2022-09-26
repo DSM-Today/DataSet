@@ -49,7 +49,7 @@ class WebToon:
             toon_list.append(
                 {
                     'status': val.find('span',{'class':'mark_adult_thumb'}).text if val.find('span',{'class':'mark_adult_thumb'}) is not None else None,
-                    'published': '휴재' if val.find('em').get_text() == '휴재' else '연의',
+                    'published': '연재' if val.find('em') is None or '' else '휴재',
                     'title': val.img['alt'],
                     'direct_url': self._basic_uri + val.a.attrs['href'],
                     'image_path': val.img['src']
