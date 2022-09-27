@@ -47,7 +47,7 @@ class WebToon:
             toon_list.append(
                 {
                     'g_rated': val.find('span',{'class':'mark_adult_thumb'}).text if val.find('span',{'class':'mark_adult_thumb'}) is not None else '18세 이하 이용 가능',
-                    'published': '연재' if val.find('em') is None or '' else '휴재',
+                    'published': '휴재' if val.em is not None and val.em.text == '휴재' else '연재',
                     'title': val.img['alt'],
                     'direct_url': self._basic_uri + val.a.attrs['href'],
                     'image_path': val.img['src']
