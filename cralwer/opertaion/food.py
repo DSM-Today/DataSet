@@ -13,16 +13,16 @@ class Food:
 
         sleep(3)
 
-        foodName = driver.find_element(By.XPATH, '//*[@id="section_search"]/form/div[4]/p').text
+        food_name = driver.find_element(By.XPATH, '//*[@id="section_search"]/form/div[4]/p').text
 
 
-        url = "https://www.google.co.kr/search?q={foodName}&sxsrf=ALiCzsZWgcEwVPp9s9R7qr0PdCdsKlPZqg:1665327432124&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjLrJqQtNP6AhVMtlYBHdSLBt8Q_AUoAXoECAEQAw&biw=1034&bih=839&dpr=2".format(foodName=foodName)
+        url = "https://www.google.co.kr/search?q={food_name}&sxsrf=ALiCzsZWgcEwVPp9s9R7qr0PdCdsKlPZqg:1665327432124&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjLrJqQtNP6AhVMtlYBHdSLBt8Q_AUoAXoECAEQAw&biw=1034&bih=839&dpr=2".format(food_name=food_name)
         html = requests.get(url)
         soup = bs(html.text, "html.parser")
-        foodImage = soup.find_all('img')[1]['src']
+        food_image = soup.find_all('img')[1]['src']
 
 
         return {
-            "foodName": foodName,
-            "foodImage": foodImage
+            "food_name": food_name,
+            "food_image": food_image
         }
