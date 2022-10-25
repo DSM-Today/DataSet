@@ -10,28 +10,28 @@ def get_random_index(max: int):
 class Book:
 
     def crawl(self):
-        json = self.get_json()
+        json = self._get_json()
 
-        random_book = self.get_random_book(json)
+        random_book = self._get_random_book(json)
 
-        return self.get_book_information(random_book)
+        return self._get_book_information(random_book)
 
     @staticmethod
-    def get_json():
+    def _get_json():
         return get(
             'https://product.kyobobook.co.kr/api/gw/pub/pdt/best-seller/online?'
             'page=1&per=20&period=001&dsplDvsnCode=000&dsplTrgtDvsnCode=001'
         ).json()
 
     @staticmethod
-    def get_random_book(json: dict):
+    def _get_random_book(json: dict):
         seller_list = json['data']['bestSeller']
         rand_int = get_random_index(len(seller_list))
 
         return seller_list[rand_int]
 
     @staticmethod
-    def get_book_information(random_book_info: dict):
+    def _get_book_information(random_book_info: dict):
         return {
             'review_amount': random_book_info['buyRevwNumc'],
             'review_score': random_book_info['buyRevwRvgr'],
