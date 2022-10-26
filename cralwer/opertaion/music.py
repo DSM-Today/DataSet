@@ -21,7 +21,20 @@ class Music:
         self._situation_id = situation_id_list[random_int]
 
     def crawl(self):
-
+        '''
+        :return {
+            situation: 듣기 좋은 상황
+            playlist_provider: 플레이리스트 제공자
+            playlist_direct_url: 플레이리스트 바로가기 url
+            is_adult: 성인 여부
+            image_path: 이미지 바로 가기
+            album_name: 앨범 이름
+            released_at: 발매일
+            title: 곡 제목
+            play_time: 재생 시간
+            song_writer: 작곡가
+        }:
+        '''
         channel_id = self._get_random_playlist_id()
 
         playlist_detail = self._get_playlist_detail(channel_id)
