@@ -11,7 +11,7 @@ class News:
 
         html_text = response.text
 
-        self.soup = bs(html_text, "html.parser")
+        self._soup = bs(html_text, "html.parser")
 
     def crawl(self):
         '''
@@ -23,7 +23,7 @@ class News:
         }:
         '''
 
-        arr = self.soup.findAll("div", class_="cjs_journal_wrap _item_contents")
+        arr = self._soup.findAll("div", class_="cjs_journal_wrap _item_contents")
         link = arr[0].find_next("a", class_="cjs_news_a _cds_link _editn_link")['href']
         image = arr[0].find_next("img")['src']
         title = arr[0].find_next("div", class_="cjs_t").text
