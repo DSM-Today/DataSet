@@ -15,23 +15,42 @@ class WebToon:
         self._basic_uri = 'https://comic.naver.com'
         self._list_uri = self._basic_uri + '/webtoon/weekday'
 
-    def get_today_toon_list(self):
+    def crawl(self):
+        '''
+        :return {
+            is_adult: 18세 이상 판별 !문구!
+            rank: 해당 요일에서의 순위
+            is_working: '연재' 또는 '휴재' 라는 !문구!
+            direct_url: 바로 가기
+            title: 제목
+            image_path: 이미지 경로
+            writer: 작가
+            introduction: 소개글
+            genre: 장르
+        }:
+        '''
+
+        today_toon_list = self._get_today_toon_list()
+
+        return self.__get_toon_detail(today_toon_list)
+
+    def _get_today_toon_list(self):
         content = bs(get(self._list_uri).text, 'lxml')
 
         today_content = content.findAll(class_='col_inner')[get_weekday()].ul
 
-        return self.parse_today_toon_list([today_content.li] + today_content.li.find_next_siblings())
+        return self._parse_today_toon_list([today_content.li] + today_content.li.find_next_siblings())
 
     @staticmethod
-    def get_toon_detail(web_toon_list: list):
+    def __get_toon_detail(web_toon_list: list):
         rank = randrange(0, len(web_toon_list))
         chosen_toon = web_toon_list[rank]
         content = bs(get(chosen_toon['direct_url']).text, 'lxml').find(class_='detail')
 
         return {
-            'g_rated': chosen_toon['g_rated'],
+            'is_adult': chosen_toon['g_rated'],
             'rank': rank,
-            'published': chosen_toon['published'],
+            'is_working': chosen_toon['published'],
             'direct_url': chosen_toon['direct_url'],
             'title': chosen_toon['title'],
             'image_path': chosen_toon['image_path'],
@@ -40,7 +59,7 @@ class WebToon:
             'genre': content.find(class_='genre').text.strip()
         }
 
-    def parse_today_toon_list(self, html_content_list):
+    def _parse_today_toon_list(self, html_content_list):
         toon_list = []
 
         for val in html_content_list:
