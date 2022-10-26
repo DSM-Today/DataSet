@@ -23,14 +23,23 @@ class Lucky:
                            '염소자리']
 
     def crawl(self, mmdd: int):
+        '''
+        :param mmdd:
+        :returns {
+            name: 운세,
+            period: 운세 기간,
+            content: 운세 소개
+        }:
+        '''
+
         star = self._get_star(mmdd)
 
         response = self._get_response(star)
 
         return {
-            'content': self._parse(response),
             'name': self._star_list[star],
-            'index': star + 1
+            'period': self._date_list[star],
+            'content': self._parse(response)
         }
 
     def _get_star(self, mmdd: int):

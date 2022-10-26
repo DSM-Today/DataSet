@@ -5,6 +5,19 @@ from bs4 import BeautifulSoup as bs
 class Lotto:
 
     def crawl(self):
+        '''
+        :return {
+                0: 1번 로또 번호,
+                1: 1번 로또 번호,
+                2: 1번 로또 번호,
+                3: 1번 로또 번호,
+                4: 1번 로또 번호,
+                5: 1번 로또 번호,
+                6: 1번 로또 번호,
+                prize: 상금
+            }:
+        '''
+
         html = self._get_html()
 
         return self._parse(html)

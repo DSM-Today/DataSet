@@ -5,24 +5,39 @@ import requests
 from bs4 import BeautifulSoup as bs
 
 
-def fetch_food():
-    driver = webdriver.Chrome("../chromedriver")
-    driver.get("http://dogumaster.com/select/menu/")
+class Food:
 
-    driver.find_element(By.XPATH, '//*[@id="section_search"]').find_element(By.ID, "input_submit").click()
+    def crawl(self):
+        '''
+        :return {
+            name: 음식 이름,
+            image_path: 사진 경로
+        }:
+        '''
 
-    sleep(3)
+        food_name = self._get_food_name()
+        image_path = self._get_food_image_path(food_name)
 
-    food_name = driver.find_element(By.XPATH, '//*[@id="section_search"]/form/div[4]/p').text
+        return {
+            'name': food_name,
+            'image_path': image_path
+        }
 
+    @staticmethod
+    def _get_food_name():
+        driver = webdriver.Chrome("../chromedriver")
+        driver.get("http://dogumaster.com/select/menu/")
 
-    url = "https://www.google.co.kr/search?q={food_name}&sxsrf=ALiCzsZWgcEwVPp9s9R7qr0PdCdsKlPZqg:1665327432124&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjLrJqQtNP6AhVMtlYBHdSLBt8Q_AUoAXoECAEQAw&biw=1034&bih=839&dpr=2".format(food_name=food_name)
-    html = requests.get(url)
-    soup = bs(html.text, "html.parser")
-    food_image = soup.find_all('img')[1]['src']
+        driver.find_element(By.XPATH, '//*[@id="section_search"]').find_element(By.ID, "input_submit").click()
 
+        sleep(3)
 
-    return {
-        "food_name": food_name,
-        "food_image": food_image
-    }
+        return driver.find_element(By.XPATH, '//*[@id="section_search"]/form/div[4]/p').text
+
+    @staticmethod
+    def _get_food_image_path(food_name):
+        url = "https://www.google.co.kr/search?q={food_name}&sxsrf=ALiCzsZWgcEwVPp9s9R7qr0PdCdsKlPZqg:1665327432124&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjLrJqQtNP6AhVMtlYBHdSLBt8Q_AUoAXoECAEQAw&biw=1034&bih=839&dpr=2".format(
+            food_name=food_name)
+        html = requests.get(url)
+        soup = bs(html.text, "html.parser")
+        return soup.find_all('img')[1]['src']
