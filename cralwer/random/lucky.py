@@ -37,9 +37,9 @@ class Lucky:
         response = self._get_response(star)
 
         return {
-            'content': self._parse(response),
             'name': self._star_list[star],
-            'index': star + 1
+            'period': self._date_list[star],
+            'content': self._parse(response)
         }
 
     def _get_star(self, mmdd: int):
