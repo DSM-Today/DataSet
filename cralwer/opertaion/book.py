@@ -10,6 +10,20 @@ def get_random_index(max: int):
 class Book:
 
     def crawl(self):
+        '''
+        :return {
+            review_amount: 리뷰 개수,
+            review_score: 리뷰 점수,
+            writer: 작가,
+            name: 책 이름,
+            introduction: 설명,
+            publisher: 출판사,
+            published_at: 출판일,
+            page: 장수,
+            direct_url: 구매하러 바로가기 링크,
+            image_path': 사진 경로'
+        }:
+        '''
         json = self._get_json()
 
         random_book = self._get_random_book(json)
