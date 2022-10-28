@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from random import randrange
 
 
-def get_weekday():
+def _get_weekday():
     return (datetime.utcnow() + timedelta(hours=9)).weekday()
 
 
@@ -37,7 +37,7 @@ class WebToon:
     def _get_today_toon_list(self):
         content = bs(get(self._list_uri).text, 'lxml')
 
-        today_content = content.findAll(class_='col_inner')[get_weekday()].ul
+        today_content = content.findAll(class_='col_inner')[_get_weekday()].ul
 
         return self._parse_today_toon_list([today_content.li] + today_content.li.find_next_siblings())
 
