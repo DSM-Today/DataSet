@@ -3,7 +3,7 @@ from requests import get
 from random import randint
 
 
-def get_random_index(max: int):
+def _get_random_index(max: int):
     return randint(1, max - 1)
 
 
@@ -40,7 +40,7 @@ class Book:
     @staticmethod
     def _get_random_book(json: dict):
         seller_list = json['data']['bestSeller']
-        rand_int = get_random_index(len(seller_list))
+        rand_int = _get_random_index(len(seller_list))
 
         return seller_list[rand_int]
 

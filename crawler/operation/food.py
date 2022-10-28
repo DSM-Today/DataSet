@@ -1,8 +1,11 @@
-from selenium import webdriver
-from selenium.webdriver.common.by import By
 from time import sleep
+
 import requests
 from bs4 import BeautifulSoup as bs
+from selenium import webdriver as webdriver
+from selenium.webdriver.common.by import By
+
+from config import get_chromedriver_path
 
 
 class Food:
@@ -25,7 +28,7 @@ class Food:
 
     @staticmethod
     def _get_food_name():
-        driver = webdriver.Chrome("../chromedriver")
+        driver = webdriver.Chrome(get_chromedriver_path())
         driver.get("http://dogumaster.com/select/menu/")
 
         driver.find_element(By.XPATH, '//*[@id="section_search"]').find_element(By.ID, "input_submit").click()

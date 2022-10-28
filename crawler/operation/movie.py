@@ -1,11 +1,13 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
+from config import get_chromedriver_path
+
 
 class Movie:
 
     def __init__(self):
-        self._driver = webdriver.Chrome("../chromedriver")
+        self._driver = webdriver.Chrome(get_chromedriver_path())
         self._driver.get("https://www.megabox.co.kr/")
 
     def crawl(self):
