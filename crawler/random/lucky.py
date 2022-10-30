@@ -45,9 +45,12 @@ class Lucky:
     def _get_star(self, mmdd: int):
         for i, day in enumerate(self._date_list):
             s, e = day
+
+            if int(e) < int(s):
+                return i
+
             if int(s) <= mmdd <= int(e):
                 return i
-        raise IndexError
 
     def _get_response(self, sequence_num: int):
         return get(
